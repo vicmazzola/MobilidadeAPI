@@ -17,10 +17,19 @@ public class TransportsController : ControllerBase
 
     // GET /transports
     [HttpGet]
-    public ActionResult<IEnumerable<Transport>> GetAll()
+    public ActionResult<IEnumerable<Transport>> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
-        return Ok(_context.Transports.ToList());
+        if (page <= 0 || pageSize <= 0)
+            return BadRequest("Page and pageSize must be greater than zero.");
+
+        var transports = _context.Transports
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return Ok(transports);
     }
+
 
     // GET /transports/{id}
     [HttpGet("{id}")]
@@ -35,20 +44,32 @@ public class TransportsController : ControllerBase
     [HttpPost]
     public ActionResult<Transport> Create(Transport transport)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
         _context.Transports.Add(transport);
         _context.SaveChanges();
+
         return CreatedAtAction(nameof(GetById), new { id = transport.Id }, transport);
     }
+
 
     // DELETE /transports/{id}
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var transport = _context.Transports.Find(id);
-        if (transport == null) return NotFound();
+        try
+        {
+            var transport = _context.Transports.Find(id);
+            if (transport == null) return NotFound();
 
-        _context.Transports.Remove(transport);
-        _context.SaveChanges();
-        return NoContent();
+            _context.Transports.Remove(transport);
+            _context.SaveChanges();
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal error: {ex.Message}");
+        }
     }
-}
+
