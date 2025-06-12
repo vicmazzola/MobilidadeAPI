@@ -19,20 +19,6 @@ Developed by **Hugo Farranha**, **Milton Ribeiro**, and **Victor Mazzola**.
 
 ---
 
-## 📁 Project Structure
-
-MobilidadeAPI/
-├── Controllers/
-├── Models/
-├── Data/
-├── Tests/
-├── Program.cs
-├── appsettings.json
-├── Dockerfile
-
-
----
-
 ## 🔧 Technologies
 
 - ASP.NET Core 8
