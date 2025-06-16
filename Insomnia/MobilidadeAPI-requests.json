@@ -1,0 +1,58 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-06-15T20:30:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2024.2.0",
+  "resources": [
+    {
+      "_id": "wrk_001",
+      "name": "MobilidadeAPI",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_001",
+      "parentId": "wrk_001",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:5028"
+      }
+    },
+    {
+      "_id": "req_get_all",
+      "parentId": "wrk_001",
+      "_type": "request",
+      "name": "GET All Transports",
+      "method": "GET",
+      "url": "{{ base_url }}/transports?page=1&pageSize=10"
+    },
+    {
+      "_id": "req_get_id",
+      "parentId": "wrk_001",
+      "_type": "request",
+      "name": "GET Transport by ID",
+      "method": "GET",
+      "url": "{{ base_url }}/transports/1"
+    },
+    {
+      "_id": "req_post",
+      "parentId": "wrk_001",
+      "_type": "request",
+      "name": "POST Create Transport",
+      "method": "POST",
+      "url": "{{ base_url }}/transports",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"type\": \"Trem\", \"user\": \"victor.mazzola\", \"usageDate\": \"2025-06-16T14:00:00\"}"
+      }
+    },
+    {
+      "_id": "req_delete",
+      "parentId": "wrk_001",
+      "_type": "request",
+      "name": "DELETE Transport by ID",
+      "method": "DELETE",
+      "url": "{{ base_url }}/transports/1"
+    }
+  ]
+}

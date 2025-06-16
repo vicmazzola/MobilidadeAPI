@@ -72,4 +72,5 @@ public class TransportsController : ControllerBase
             return StatusCode(500, $"Internal error: {ex.Message}");
         }
     }
+}
 
